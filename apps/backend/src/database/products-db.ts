@@ -1,0 +1,48 @@
+import { Product } from "@domain/src/entities/Products";
+
+export let productsDB: Product[] = [
+  {
+    id: "libro-001",
+    name: "El Aleph",
+    description: "Libro de cuentos de Jorge Luis Borges.",
+    price: 3500,
+    stock: 8,
+    category: "Ficción",
+    imageUrl: "https://ejemplo.com/aleph.jpg",
+    createdAt: new Date("2023-10-15"),
+    updatedAt: new Date("2023-11-20"),
+  },
+  {
+    id: "libro-002",
+    name: "Rayuela",
+    description: "Novela de Julio Cortázar.",
+    price: 4200,
+    stock: 5,
+    category: "Novela",
+    imageUrl: "https://ejemplo.com/rayuela.jpg",
+    createdAt: new Date("2023-09-01"),
+    updatedAt: new Date("2023-10-10"),
+  },
+  {
+    id: "libro-003",
+    name: "Ficciones",
+    description: "Otra obra maestra de Borges.",
+    price: 3700,
+    stock: 12,
+    category: "Ficción",
+    imageUrl: "https://ejemplo.com/ficciones.jpg",
+    createdAt: new Date("2023-11-05"),
+    updatedAt: new Date("2023-11-05"),
+  },
+  {
+    id: "libro-004",
+    name: "Bestiario",
+    description: "Libro de cuentos de Julio Cortázar.",
+    price: 2500,
+    stock: 7,
+    category: "Cuentos",
+    imageUrl: "https://ejemplo.com/bestiario.jpg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
