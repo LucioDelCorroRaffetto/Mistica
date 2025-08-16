@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import productRoutes from "./routes/product.routes";
-import authRoutes from "./routes/auth.routes";
-import cartRoutes from "./routes/cart.routes";
+import productRoutes from "./routes/product-routes";
+import authRoutes from "./routes/auth-routes";
+import changoRoutes from "./routes/chango.routes";
 
 const app = express();
 
@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
   process.env.BASE_URL || "http://localhost:3000",
   "http://localhost:4000",
+  "http://localhost:5173", // <-- agrega este
 ];
 
 // Middlewares
@@ -42,7 +43,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/cart", cartRoutes);
+app.use("/api/chango", changoRoutes);
 
 // Not found (404)
 app.use((req, res) => {
