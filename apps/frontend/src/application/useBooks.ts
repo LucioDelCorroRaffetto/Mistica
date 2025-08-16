@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../infrastructure/api";
-import { Book } from "../domain/Book";
-
+import { Product } from "@domain/src/entities/Products";
 export function useBooks() {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
