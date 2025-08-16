@@ -6,9 +6,9 @@ const router = Router();
 
 router.use(authenticate);
 router
-  .post("/", changoController.addToCart)
-  .get("/", changoController.getCart)
-  .delete("/", changoController.clearCart)
-  .delete("/:productId", changoController.removeFromCart);
+  .post("/", changoController.addToChango)
+  .get("/", changoController.getChango)
+  .delete("/", changoController.clearChango)
+  .delete("/:productId", changoController.removeFromChango);
 
 export default router;
