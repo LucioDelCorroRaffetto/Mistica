@@ -1,11 +1,11 @@
 import { describe, beforeEach, test, vi, expect } from "vitest";
 import authService from "./auth.service";
-import userRepository from "../data/user.repository";
+import userRepository from "../data/user-repository";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "@domain/src/entities/User";
 
-vi.mock("../data/user.repository.ts");
+vi.mock("../data/user-repository.ts");
 vi.mock("bcryptjs");
 vi.mock("jsonwebtoken");
 
@@ -13,9 +13,9 @@ describe("Auth Service", () => {
   const mockUser: User = {
     id: "user123",
     email: "test@example.com",
-    username: "testuser",
-    password: "Password123!",
-    role: "user",
+    name: "testuser",
+    passwordHash: "Password123!",
+    role: "cliente",
   };
 
   beforeEach(() => {
@@ -45,12 +45,12 @@ describe("Auth Service", () => {
 
       expect(token).toBe("mock-token-123");
       expect(userRepository.findByEmail).toHaveBeenCalledWith(mockUser.email);
-      expect(bcrypt.hash).toHaveBeenCalledWith(mockUser.password, 10);
+      expect(bcrypt.hash).toHaveBeenCalledWith(mockUser.passwordHash, 10);
       expect(userRepository.save).toHaveBeenCalledWith(
         expect.objectContaining({
           ...mockUser,
           id: "",
-          password: "hashedPassword123",
+          passwordHash: "hashedPassword123",
           role: "user",
         })
       );
@@ -74,7 +74,7 @@ describe("Auth Service", () => {
       expect(userRepository.findByEmail).toHaveBeenCalledWith(mockUser.email);
       expect(bcrypt.compare).toHaveBeenCalledWith(
         "Password123!",
-        mockUser.password
+        mockUser.passwordHash
       );
       expect(jwt.sign).toHaveBeenCalledWith(
         { id: mockUser.id, email: mockUser.email, role: mockUser.role },
@@ -106,7 +106,7 @@ describe("Auth Service", () => {
       expect(userRepository.findByEmail).toHaveBeenCalledWith(mockUser.email);
       expect(bcrypt.compare).toHaveBeenCalledWith(
         "wrongpassword",
-        mockUser.password
+        mockUser.passwordHash
       );
       expect(jwt.sign).not.toHaveBeenCalled();
     });
