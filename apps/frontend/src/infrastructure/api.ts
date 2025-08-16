@@ -3,3 +3,8 @@ export const getBooks = async () => {
   if (!res.ok) throw new Error("Error fetching books");
   return res.json();
 };
+export async function getProducts() {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
+  if (!res.ok) throw new Error("Network error");
+  return await res.json();
+}
