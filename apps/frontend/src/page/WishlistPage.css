@@ -1,0 +1,135 @@
+.wishlist-page {
+  padding: 2rem 0;
+  min-height: 80vh;
+}
+
+.wishlist-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: slideInDown 0.5s ease-out;
+}
+
+.wishlist-header h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.wishlist-header p {
+  color: #6b7280;
+  font-size: 1.125rem;
+}
+
+.wishlist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.wishlist-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.wishlist-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+}
+
+.item-image {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.item-image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.item-details h3 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+  color: #1f2937;
+}
+
+.category {
+  color: #8b5cf6;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.description {
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  flex-grow: 1;
+}
+
+.item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #6366f1;
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.empty-wishlist {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+  border-radius: 1rem;
+}
+
+.empty-wishlist p {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.clear-btn {
+  display: block;
+  margin: 2rem auto 0;
+}
+
+@media (max-width: 768px) {
+  .wishlist-item {
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+  }
+
+  .item-image img {
+    height: 150px;
+  }
+
+  .item-actions {
+    flex-direction: column;
+  }
+}
