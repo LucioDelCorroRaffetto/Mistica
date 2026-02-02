@@ -19,22 +19,29 @@ export function ProductListPage() {
 
   if (isError) {
     return (
-      <article className="container">
-        <h1>Error</h1>
-        <p>
-          Hubo un problema al cargar los productos. Por favor, inténtelo de
-          nuevo más tarde.
-        </p>
+      <article className="products-page">
+        <div className="container mx-auto">
+          <h1 className="text-3xl font-bold text-red-500 text-center mb-4">Error</h1>
+          <p className="text-center text-gray-600">
+            Hubo un problema al cargar los productos. Por favor, inténtelo de
+            nuevo más tarde.
+          </p>
+        </div>
       </article>
     );
   }
 
   return (
-    <article className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Nuestros Productos
-      </h1>
-      <ProductContainer products={products || []} />
+    <article className="products-page">
+      <div className="container mx-auto">
+        <div className="products-header">
+          <h1>Nuestros Productos</h1>
+          <p>Descubre nuestra colección exclusiva de libros y literatura</p>
+        </div>
+        <div className="products-grid">
+          <ProductContainer products={products || []} />
+        </div>
+      </div>
     </article>
   );
 }
