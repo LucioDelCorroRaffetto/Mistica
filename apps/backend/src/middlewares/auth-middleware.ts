@@ -52,3 +52,6 @@ export const authorize = (roles: string[]) => {
     next();
   };
 };
+
+// Backwards-compatible alias expected by some routes
+export const authMiddleware = authenticate;
