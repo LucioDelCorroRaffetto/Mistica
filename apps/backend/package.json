@@ -7,8 +7,12 @@
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "socket.io": "^4.8.3",
+    "stripe": "^13.11.0",
     "tsc": "^2.0.4",
     "uuid": "^11.1.0",
     "vitest": "^3.2.4"
@@ -18,15 +22,20 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.16.0",
     "@types/supertest": "^6.0.3",
     "supertest": "^7.1.4",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   },
   "description": "",
   "scripts": {
-    "dev": "ts-node src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node -r tsconfig-paths/register -r dotenv/config src/server.ts",
+    "start": "node dist/src/server.js",
+    "build": "tsc",
+    "seed": "ts-node src/database/seed.ts",
+    "test": "vitest"
   },
   "keywords": [],
   "author": ""
