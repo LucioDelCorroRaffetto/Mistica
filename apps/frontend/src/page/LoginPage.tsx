@@ -1,74 +1,148 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hook/useAuth";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hook/useAuth';
+import { useFormValidation, type FormErrors } from '../hook/useFormValidation';
 
+/**
+ * Validation rules for login form
+ */
+const validateLoginForm = (values: {
+  email: string;
+  password: string;
+}): FormErrors => {
+  const errors: FormErrors = {};
+
+  if (!values.email) {
+    errors.email = 'Email es obligatorio';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+    errors.email = 'Email inválido';
+  }
+
+  if (!values.password) {
+    errors.password = 'Contraseña es obligatoria';
+  } else if (values.password.length < 8) {
+    errors.password = 'La contraseña debe tener al menos 8 caracteres';
+  }
+
+  return errors;
+};
+
+/**
+ * Login page component
+ * Handles user authentication with email and password
+ * Separates form logic using custom hooks and reusable components
+ */
 export function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const { login } = useAuth();
-  const Navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [generalError, setGeneralError] = useState<string | null>(null);
 
+  const { values, errors, touched, handleChange, handleBlur, validateForm, reset } =
+    useFormValidation(
+      { email: '', password: '' },
+      validateLoginForm
+    );
+
+  /**
+   * Handles form submission
+   * Validates before attempting login
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setGeneralError(null);
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
     try {
-      await login({ email, password });
-      Navigate("/");
+      await login({ email: values.email, password: values.password });
+      reset();
+      navigate('/');
     } catch (error) {
-      alert(
-        `Credenciales incorrectas. Por favor, intenta de nuevo. Error: ${error}`
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
+      setGeneralError(
+        `Credenciales incorrectas. Por favor intenta de nuevo. ${errorMessage}`
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <article className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Iniciar Sesión
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
+    <div className="login-page">
+      <div className="login-form-wrapper">
+        <div className="login-form-header">
+          <h1>Bienvenido</h1>
+          <p>Inicia sesión en tu cuenta</p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="login-form-box">
+          {generalError && (
+            <div className="login-error-message">
+              {generalError}
+            </div>
+          )}
+          
+          <div className="form-input-group">
+            <label htmlFor="email">Email</label>
             <input
-              type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
+              type="email"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="tu@email.com"
+              className={errors.email && touched.email ? 'error' : ''}
+              disabled={isLoading}
             />
+            {errors.email && touched.email && (
+              <div className="form-input-error">{errors.email}</div>
+            )}
           </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Contraseña
-            </label>
+
+          <div className="form-input-group">
+            <label htmlFor="password">Contraseña</label>
             <input
-              type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
+              type="password"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="••••••••"
+              className={errors.password && touched.password ? 'error' : ''}
+              disabled={isLoading}
             />
+            {errors.password && touched.password && (
+              <div className="form-input-error">{errors.password}</div>
+            )}
           </div>
-          <footer className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Entrar
-            </button>
-          </footer>
+
+          <button 
+            type="submit" 
+            className="login-btn"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="login-loading-spinner">
+                <span className="spinner spinner-sm"></span>
+                Entrando...
+              </span>
+            ) : (
+              'Iniciar Sesión'
+            )}
+          </button>
+
+          <div className="login-form-footer">
+            <p>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
+          </div>
         </form>
       </div>
-    </article>
+    </div>
   );
 }
