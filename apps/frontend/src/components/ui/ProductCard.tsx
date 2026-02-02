@@ -2,35 +2,35 @@ import { type FC } from "react";
 import { Link } from "react-router-dom";
 import type { ProductCardProps } from "../../types/product";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addToChango } from "../../services/chango-service";
+import { addToCart } from "../../services/cart-service";
 import { useAuth } from "../../hook/useAuth";
-import type { AddToChangoRequest } from "@backend-types/type";
+import type { AddToCartRequest } from "@backend-types/type";
 
 export const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const queryClient = useQueryClient();
   const { isAuthenticated } = useAuth();
 
   const { mutate, isPending: isAdding } = useMutation({
-    mutationFn: (data: AddToChangoRequest) => addToChango(data),
+    mutationFn: (data: AddToCartRequest) => addToCart(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["chango"] });
-      alert("Producto añadido al chango!");
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      alert("Producto añadido al carrito!");
     },
     onError: (error) => {
-      console.error("Error al añadir al chango", error);
-      alert("Error al añadir al chango. Revisa la consola.");
+      console.error("Error al añadir al carrito", error);
+      alert("Error al añadir al carrito. Revisa la consola.");
     },
   });
 
-  const handleAddToChango = (e: React.MouseEvent) => {
+  const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!isAuthenticated) {
-      alert("Debes iniciar sesión para añadir productos al chango.");
+      alert("Debes iniciar sesión para añadir productos al carrito.");
       return;
     }
 
     if (product) {
-      const requestData: AddToChangoRequest = {
+      const requestData: AddToCartRequest = {
         productId: product.id,
         quantity: 1,
       };
@@ -39,30 +39,34 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Link
-      to={`/products/${product.id}`}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 max-w-sm"
-    >
-      <figure className="w-32 h-40 mx-auto">
+    <Link to={`/products/${product.id}`} className="product-card">
+      <div className="product-card-image-wrapper">
+        {product.stock === 0 && <div className="product-card-out-of-stock">Agotado</div>}
+        {product.stock > 0 && product.stock <= 3 && (
+          <div className="product-card-badge">Solo {product.stock} disponibles</div>
+        )}
         <img
-          className="w-full h-full object-cover"
-          src={product.imageUrl || "https://via.placeholder.com/150"}
+          className="product-card-image"
+          src={product.imageUrl || "https://via.placeholder.com/300x280"}
           alt={product.name}
         />
-      </figure>
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
-        <p className="mt-1 text-gray-600">{product.description}</p>
-        <p className="mt-2 text-xl font-bold text-gray-900">${product.price}</p>
-        {isAuthenticated && (
-          <button
-            className="mt-4 w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors disabled:bg-gray-400"
-            onClick={handleAddToChango}
-            disabled={isAdding || product.stock === 0}
-          >
-            {isAdding ? "Añadiendo..." : "Añadir al carrito"}
-          </button>
-        )}
+      </div>
+      <div className="product-card-content">
+        <div className="product-card-category">{product.category}</div>
+        <h3 className="product-card-title">{product.name}</h3>
+        <p className="product-card-description">{product.description}</p>
+        <div className="product-card-footer">
+          <span className="product-card-price">${product.price}</span>
+          {isAuthenticated && (
+            <button
+              className="product-card-btn"
+              onClick={handleAddToCart}
+              disabled={isAdding || product.stock === 0}
+            >
+              {isAdding ? "Añadiendo..." : "Añadir"}
+            </button>
+          )}
+        </div>
       </div>
     </Link>
   );
