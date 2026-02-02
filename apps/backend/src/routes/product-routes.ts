@@ -4,11 +4,9 @@ import { authenticate, authorize } from "../middlewares/auth-middleware";
 
 const router = Router();
 
-// Public routes
 router.get("/", productController.getAllProducts);
 router.get("/:productId", productController.getProductById);
 
-// Protected routes
 router.post(
   "/",
   authenticate,
