@@ -5,7 +5,7 @@ export function mockProductRepository(): ProductRepository {
   const products: Product[] = [];
 
   return {
-    save(product: Product): Product {
+    async save(product: Product): Promise<Product> {
       const existingIndex = products.findIndex((p) => p.id === product.id);
       if (existingIndex !== -1) {
         products[existingIndex] = product;
@@ -14,13 +14,13 @@ export function mockProductRepository(): ProductRepository {
       }
       return product;
     },
-    findById(id: string): Product | undefined {
+    async findById(id: string): Promise<Product | undefined> {
       return products.find((product) => product.id === id);
     },
-    findAll(): Product[] {
+    async findAll(): Promise<Product[]> {
       return products;
     },
-    delete(id: string): boolean {
+    async delete(id: string): Promise<boolean> {
       const index = products.findIndex((product) => product.id === id);
       if (index !== -1) {
         products.splice(index, 1);
