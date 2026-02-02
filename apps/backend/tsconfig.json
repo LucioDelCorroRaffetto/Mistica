@@ -6,7 +6,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@domain/*": ["../../domain/*"]
+      "@domain/*": ["../../domain/src/*"],
+      "@domain/src/*": ["../../domain/src/*"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",
