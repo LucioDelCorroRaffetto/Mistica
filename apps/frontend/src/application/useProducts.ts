@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Product } from "@domain/src/entities/Products";
+import type { Product } from "@domain/entities/Products";
 import { getProducts } from "../infrastructure/api";
 
 export function useProducts() {
