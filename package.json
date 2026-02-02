@@ -1,0 +1,24 @@
+{
+  "name": "mistica",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend",
+    "domain"
+  ],
+  "scripts": {
+    "install-all": "npm install",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "test:backend": "npm run test --workspace=backend",
+    "test:frontend": "npm run test --workspace=frontend",
+    "test:domain": "npm run test --workspace=domain",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:domain": "npm run build --workspace=domain",
+    "build": "npm run build:domain",
+    "test": "npm run test:domain && npm run test:backend && npm run test:frontend"
+  },
+  "devDependencies": {},
+  "description": "Mistica - E-commerce platform"
+}
