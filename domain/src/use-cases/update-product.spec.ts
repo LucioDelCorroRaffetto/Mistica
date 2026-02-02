@@ -21,16 +21,16 @@ describe("UpdateProduct Use Case", () => {
     };
 
     mockRepository = {
-      findById: vi.fn().mockReturnValue(mockProduct),
-      save: vi.fn().mockReturnValue(undefined),
+      findById: vi.fn().mockResolvedValue(mockProduct),
+      save: vi.fn().mockResolvedValue(mockProduct),
       findAll: vi.fn(),
       delete: vi.fn(),
     };
   });
 
-  test("should update the product and return the updated object", () => {
+  test("should update the product and return the updated object", async () => {
     const updatedData = { name: "New Product", price: 20 };
-    const result = updateProduct("1", updatedData, mockRepository);
+    const result = await updateProduct("1", updatedData, mockRepository);
 
     expect(mockRepository.findById).toHaveBeenCalledWith("1");
     expect(mockRepository.save).toHaveBeenCalledWith(
@@ -49,11 +49,11 @@ describe("UpdateProduct Use Case", () => {
     );
   });
 
-  test("should return null if the product is not found", () => {
-    vi.mocked(mockRepository.findById).mockReturnValue(undefined);
+  test("should return null if the product is not found", async () => {
+    vi.mocked(mockRepository.findById).mockResolvedValue(undefined);
 
     const updatedData = { name: "New Product" };
-    const result = updateProduct(
+    const result = await updateProduct(
       "non-existent-id",
       updatedData,
       mockRepository
