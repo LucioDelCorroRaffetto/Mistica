@@ -29,7 +29,7 @@ export async function UserRegister(
 function validateUserData(
   email: string,
   password: string,
-  username: string
+  name: string
 ): void {
   if (email.trim() === "") {
     throw new Error("Email is required");
@@ -37,7 +37,7 @@ function validateUserData(
   if (password.trim() === "") {
     throw new Error("Password is required");
   }
-  if (username.trim() === "") {
-    throw new Error("Username is required");
+  if (name.trim() === "") {
+    throw new Error("Name is required");
   }
 }
