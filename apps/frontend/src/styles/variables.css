@@ -1,0 +1,106 @@
+/* Google Fonts - Temática Librería Clásica */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lora:wght@400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap");
+
+:root {
+  /* ===== Paleta de Colores - Librería Clásica ===== */
+
+  /* Colores Principales */
+  --color-wood-dark: #2c1810; /* Madera oscura - headers, footer */
+  --color-parchment: #f4e8d0; /* Pergamino - fondos suaves */
+  --color-sepia: #8b7355; /* Sepia - textos secundarios */
+  --color-library-green: #2f5233; /* Verde biblioteca - botones, acentos */
+  --color-antique-gold: #d4af37; /* Dorado antiguo - detalles, iconos */
+
+  /* Colores de Acento */
+  --color-book-red: #8b2500; /* Rojo libro - CTAs importantes */
+  --color-cream: #faf6eb; /* Crema - fondos alternativos */
+  --color-slate: #4a4a4a; /* Gris pizarra - textos principales */
+
+  /* Colores Semánticos */
+  --color-success: #2f5233;
+  --color-error: #8b2500;
+  --color-warning: #d4af37;
+  --color-info: #8b7355;
+
+  /* ===== Tipografía ===== */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Lora", serif;
+  --font-accent: "Crimson Text", serif;
+
+  /* Tamaños de Fuente */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+
+  /* Peso de Fuente */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* ===== Espaciado ===== */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
+
+  /* ===== Bordes y Sombras ===== */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  /* Sombras estilo papel */
+  --shadow-sm: 0 2px 4px rgba(44, 24, 16, 0.1);
+  --shadow-md: 0 4px 8px rgba(44, 24, 16, 0.15);
+  --shadow-lg: 0 8px 16px rgba(44, 24, 16, 0.2);
+  --shadow-xl: 0 12px 24px rgba(44, 24, 16, 0.25);
+
+  /* Sombra interna para efecto hundido */
+  --shadow-inner: inset 0 2px 4px rgba(44, 24, 16, 0.1);
+
+  /* ===== Transiciones ===== */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+
+  /* ===== Z-Index ===== */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  /* ===== Backgrounds con Textura ===== */
+  --bg-paper:
+    linear-gradient(90deg, rgba(244, 232, 208, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(244, 232, 208, 0.03) 1px, transparent 1px);
+  --bg-paper-size: 20px 20px;
+
+  /* ===== Layout ===== */
+  --container-max-width: 1280px;
+  --navbar-height: 70px;
+  --footer-height: auto;
+}
+
+/* Modo Oscuro (Opcional - Biblioteca Nocturna) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-wood-dark: #1a0f0a;
+    --color-parchment: #2a2419;
+    --color-cream: #3a342a;
+    --color-slate: #d4d4d4;
+  }
+}
