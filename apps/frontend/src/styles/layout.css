@@ -1,0 +1,188 @@
+/**
+ * Layout Styles - Temática Librería Clásica
+ * Navbar, Footer, Container
+ */
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+  background: linear-gradient(135deg, var(--color-wood-dark) 0%, #3a241a 100%);
+  padding: var(--spacing-md) 0;
+  box-shadow: 0 4px 12px rgba(44, 24, 16, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  border-bottom: 3px solid var(--color-antique-gold);
+}
+
+.navbar-brand {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-antique-gold) !important;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: all var(--transition-base);
+}
+
+.navbar-brand:hover {
+  color: var(--color-cream) !important;
+  transform: scale(1.05);
+  border-bottom: none !important;
+}
+
+.navbar-brand img {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4));
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  font-family: var(--font-accent);
+}
+
+.navbar-nav a {
+  color: var(--color-cream);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+  position: relative;
+}
+
+.navbar-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-antique-gold);
+  transition: all var(--transition-base);
+  transform: translateX(-50%);
+}
+
+.navbar-nav a:hover {
+  color: var(--color-antique-gold);
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
+.navbar-nav a:hover::after {
+  width: 100%;
+}
+
+.navbar .btn {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.theme-toggle-btn {
+  background: rgba(244, 232, 208, 0.1);
+  color: var(--color-cream);
+  border: 2px solid rgba(244, 232, 208, 0.3);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: var(--font-size-lg);
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--color-antique-gold);
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  background: linear-gradient(135deg, var(--color-wood-dark) 0%, #3a241a 100%);
+  color: var(--color-cream);
+  padding: var(--spacing-3xl) 0 var(--spacing-xl);
+  margin-top: auto;
+  border-top: 3px solid var(--color-antique-gold);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.footer-section h3 {
+  font-family: var(--font-heading);
+  color: var(--color-antique-gold);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-section p,
+.footer-section a {
+  color: var(--color-cream);
+  opacity: 0.9;
+  line-height: 1.8;
+  font-size: var(--font-size-sm);
+}
+
+.footer-section a:hover {
+  color: var(--color-antique-gold);
+  opacity: 1;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid rgba(244, 232, 208, 0.2);
+  color: var(--color-cream);
+  opacity: 0.8;
+  font-size: var(--font-size-sm);
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== LAYOUT HELPERS ===== */
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+  
+  .navbar-brand {
+    font-size: var(--font-size-xl);
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+}
