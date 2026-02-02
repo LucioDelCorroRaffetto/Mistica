@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ChangoPage } from "./ChangoPage";
+import { CartPage } from "./CartPage";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContext } from "../context/auth-context-context";
@@ -47,9 +47,9 @@ const mockCart = {
   ],
 };
 
-const meta: Meta<typeof ChangoPage> = {
-  component: ChangoPage,
-  title: "Pages/ChangoPage",
+const meta: Meta<typeof CartPage> = {
+  component: CartPage,
+  title: "Pages/CartPage",
   decorators: [
     (Story) => (
       <MemoryRouter initialEntries={["/cart"]}>
@@ -75,7 +75,7 @@ const meta: Meta<typeof ChangoPage> = {
 
 export default meta;
 
-type Story = StoryObj<typeof ChangoPage>;
+type Story = StoryObj<typeof CartPage>;
 
 export const FilledCart: Story = {
   parameters: {
