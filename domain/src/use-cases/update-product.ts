@@ -9,12 +9,12 @@ export interface UpdateProductRequest {
   category?: string;
 }
 
-export function updateProduct(
+export async function updateProduct(
   id: string,
   request: UpdateProductRequest,
   repository: ProductRepository
-): Product | null {
-  const existingProduct = repository.findById(id);
+): Promise<Product | null> {
+  const existingProduct = await repository.findById(id);
 
   if (!existingProduct) {
     return null;
@@ -26,7 +26,7 @@ export function updateProduct(
     updatedAt: new Date(),
   };
 
-  repository.save(updatedProduct);
+  await repository.save(updatedProduct);
 
   return updatedProduct;
 }
