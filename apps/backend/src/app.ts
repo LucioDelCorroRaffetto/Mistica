@@ -3,19 +3,26 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import productRoutes from "./routes/product-routes";
 import authRoutes from "./routes/auth-routes";
-import changoRoutes from "./routes/chango.routes";
+import cartRoutes from "./routes/cart-routes";
+import filterRoutes from "./routes/filter-routes";
+import recommendationRoutes from "./routes/recommendation-routes";
+import paymentRoutes from "./routes/payment-routes";
+import { reviewsRouter } from "./controllers/reviews-controller";
+import { wishlistRouter } from "./controllers/wishlist-controller";
+import { ordersRouter } from "./controllers/orders-controller";
+import { readingListsRouter } from "./controllers/reading-lists-controller";
+import { couponsRouter } from "./controllers/coupons-controller";
+import { rewardsRouter } from "./controllers/rewards-controller";
+import { notificationsRouter } from "./controllers/notifications-controller";
 
 const app = express();
-
-const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   process.env.BASE_URL || "http://localhost:3000",
   "http://localhost:4000",
-  "http://localhost:5173", // <-- agrega este
+  "http://localhost:5173",
 ];
 
-// Middlewares
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -40,12 +47,20 @@ app.get("/", (req, res) => {
   });
 });
 
-// Routes
 app.use("/api/products", productRoutes);
+app.use("/api/products", reviewsRouter);
+app.use("/api", wishlistRouter);
+app.use("/api", ordersRouter);
+app.use("/api", readingListsRouter);
+app.use("/api", couponsRouter);
+app.use("/api", rewardsRouter);
+app.use("/api", notificationsRouter);
 app.use("/api/auth", authRoutes);
-app.use("/api/chango", changoRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/filters", filterRoutes);
+app.use("/api/recommendations", recommendationRoutes);
+app.use("/api/payments", paymentRoutes);
 
-// Not found (404)
 app.use((req, res) => {
   res.status(404).json({
     ok: false,
@@ -53,17 +68,12 @@ app.use((req, res) => {
   });
 });
 
-// General error handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
     ok: false,
     message: "Error interno del servidor",
   });
-});
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port http://localhost:${PORT}`);
 });
 
 export default app;
