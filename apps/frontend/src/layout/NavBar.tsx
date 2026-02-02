@@ -1,8 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
+import { useTheme } from "../context/ThemeContext";
+import LogoMistica from "../assets/mistica-logo.svg";
 
 export function Navbar() {
   const { isAuthenticated, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -11,39 +14,52 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-indigo-900 via-purple-800 to-pink-700 p-4 shadow-lg rounded-b-xl">
-      <article className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-3xl font-extrabold tracking-wide drop-shadow-lg">
-          Mistica
-        </Link>
-        <div className="flex gap-4 items-center">
-          <Link to="/" className="text-pink-200 hover:text-white font-medium px-3 py-1 rounded transition-colors duration-200">
-            Libros
+    <nav className="navbar">
+      <div className="container mx-auto">
+        <div className="flex justify-between items-center">
+          <Link to="/" className="navbar-brand flex items-center gap-2">
+            <img src={LogoMistica} alt="Mística" className="w-10 h-10" />
+            <span>MÍSTICA</span>
           </Link>
-          {isAuthenticated ? (
-            <>
-              <Link to="/chango" className="text-pink-200 hover:text-white font-medium px-3 py-1 rounded transition-colors duration-200">
-                Chango
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-1 rounded shadow transition-colors duration-200"
-              >
-                Cerrar Sesión
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-4 py-1 rounded shadow transition-colors duration-200">
-                Login
-              </Link>
-              <Link to="/register" className="bg-purple-700 hover:bg-purple-800 text-white font-semibold px-4 py-1 rounded shadow transition-colors duration-200">
-                Registro
-              </Link>
-            </>
-          )}
+
+          <div className="navbar-nav">
+            <Link to="/">Mística</Link>
+            <Link to="/libros">Libros</Link>
+            {isAuthenticated ? (
+              <>
+                <Link to="/wishlist">❤️ Wishlist</Link>
+                <Link to="/orders">📦 Órdenes</Link>
+                <Link to="/cart">🛒 Carrito</Link>
+                <Link to="/perfil">👤 Perfil</Link>
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-error btn-sm ml-2"
+                >
+                  Cerrar Sesión
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="btn btn-primary btn-sm">
+                  Login
+                </Link>
+                <Link to="/register" className="btn btn-secondary btn-sm">
+                  Registro
+                </Link>
+              </>
+            )}
+
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle-btn ml-2"
+              title={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
+          </div>
         </div>
-      </article>
+      </div>
     </nav>
   );
 }
