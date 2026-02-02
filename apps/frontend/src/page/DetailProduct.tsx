@@ -1,9 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getProductById } from "../services/product-service";
-import { addToChango } from "../services/chango-service";
+import { addToCart } from "../services/cart-service";
 import { useAuth } from "../hook/useAuth";
-import type { AddToChangoRequest } from "@backend-types/type";
+import { ReviewCard } from "../components/ReviewCard";
+import { WishlistButton } from "../components/WishlistButton";
+import { ImageGallery } from "../components/ImageGallery";
+import type { AddToCartRequest } from "@backend-types/type";
 
 export function DetailProduct() {
   const { productId } = useParams<{ productId: string }>();
@@ -22,7 +25,7 @@ export function DetailProduct() {
   });
 
   const { mutate, isPending: isAdding } = useMutation({
-    mutationFn: (data: AddToChangoRequest) => addToChango(data),
+    mutationFn: (data: AddToCartRequest) => addToCart(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
       alert("Producto añadido al carrito!");
@@ -41,7 +44,7 @@ export function DetailProduct() {
     }
 
     if (product && productId) {
-      const requestData: AddToChangoRequest = {
+      const requestData: AddToCartRequest = {
         productId: productId,
         quantity: 1,
       };
@@ -51,7 +54,7 @@ export function DetailProduct() {
 
   if (isLoading) {
     return (
-      <article className="flex items-center justify-center h-screen">
+      <article className="detail-product-page flex items-center justify-center" style={{ minHeight: "100vh" }}>
         <p className="text-xl text-gray-500">Cargando producto...</p>
       </article>
     );
@@ -59,36 +62,59 @@ export function DetailProduct() {
 
   if (isError || !product) {
     return (
-      <article className="flex items-center justify-center h-screen">
+      <article className="detail-product-page flex items-center justify-center" style={{ minHeight: "100vh" }}>
         <p className="text-xl text-red-500">Producto no encontrado o error.</p>
       </article>
     );
   }
 
+  // Create array of images (for gallery)
+  const productImages = [product.imageUrl];
+
   return (
-    <article className="container mx-auto p-4 flex flex-col md:flex-row max-w-xl">
-      <figure className="md:w-2/3">
-        <img
-          src={product.imageUrl || "https://via.placeholder.com/600x400"}
-          alt={product.name}
-          className="w-full rounded-lg shadow-md"
-        />
-      </figure>
-      <aside className="md:w- md:pl-8 mt-4 md:mt-0">
-        <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
-        <p className="mt-4 text-gray-600 text-lg">{product.description}</p>
-        <p className="mt-4 text-2xl font-bold text-gray-900">
-          ${product.price}
-        </p>
-        <p className="mt-2 text-gray-500">Stock disponible: {product.stock}</p>
-        <button
-          className="mt-6 bg-blue-500 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-600 transition-colors text-md"
-          onClick={handleAddToCart}
-          disabled={isAdding || product.stock === 0}
-        >
-          {isAdding ? "Añadiendo..." : "Añadir al carrito"}
-        </button>
-      </aside>
+    <article className="detail-product-page">
+      <div className="detail-product-container">
+        <figure className="detail-product-image">
+          <ImageGallery images={productImages} productName={product.name} />
+        </figure>
+        <aside className="detail-product-info">
+          <div className="detail-product-header">
+            <div className="detail-product-category">{product.category}</div>
+            <h1 className="detail-product-title">{product.name}</h1>
+            <p className="detail-product-description">{product.description}</p>
+          </div>
+
+          <div className="detail-product-price-section">
+            <div className="detail-product-price">${product.price}</div>
+            <p className={`detail-product-stock ${product.stock > 0 ? "in-stock" : "out-of-stock"}`}>
+              {product.stock > 0 ? `✓ ${product.stock} en stock` : "❌ Agotado"}
+            </p>
+          </div>
+
+          <div className="detail-product-actions">
+            <button
+              className="detail-product-add-btn"
+              onClick={handleAddToCart}
+              disabled={isAdding || product.stock === 0}
+            >
+              {isAdding ? "Añadiendo..." : "Añadir al carrito"}
+            </button>
+            <WishlistButton productId={productId!} />
+          </div>
+
+          <button
+            className="btn btn-outline w-full"
+            onClick={() => navigate(-1)}
+          >
+            ← Volver
+          </button>
+        </aside>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="detail-product-reviews">
+        <ReviewCard productId={productId!} onReviewAdded={() => {}} />
+      </div>
     </article>
   );
 }
