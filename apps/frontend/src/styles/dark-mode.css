@@ -1,0 +1,92 @@
+/* ===== DARK MODE - Biblioteca Nocturna ===== */
+
+[data-theme="dark"],
+.dark-mode {
+  /* Colores oscuros adaptados al tema librería */
+  --color-wood-dark: #1A0F0A;
+  --color-parchment: #2A2419;
+  --color-cream: #3A342A;
+  --color-slate: #D4D4D4;
+  --color-sepia: #A59278;
+  --color-library-green: #4A6B4F;
+  --color-antique-gold: #F4D58D;
+  
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--color-wood-dark);
+  color: var(--color-slate);
+  background-image: var(--bg-paper);
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--color-antique-gold);
+}
+
+[data-theme="dark"] p {
+  color: var(--color-slate);
+}
+
+[data-theme="dark"] a {
+  color: var(--color-antique-gold);
+}
+
+[data-theme="dark"] a:hover {
+  color: var(--color-library-green);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: var(--color-parchment);
+  color: var(--color-slate);
+  border-color: var(--color-sepia);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+  border-color: var(--color-library-green);
+  box-shadow: 0 0 0 3px rgba(74, 107, 79, 0.2);
+}
+
+[data-theme="dark"] .btn-primary {
+  background-color: var(--color-library-green);
+}
+
+[data-theme="dark"] .btn-outline {
+  border-color: var(--color-sepia);
+  color: var(--color-slate);
+}
+
+[data-theme="dark"] .navbar {
+  background: linear-gradient(135deg, #0F0805 0%, #1A0F0A 100%);
+  border-bottom-color: var(--color-sepia);
+}
+
+[data-theme="dark"] .footer {
+  background: linear-gradient(135deg, #0F0805 0%, #1A0F0A 100%);
+  border-top-color: var(--color-sepia);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .profile-section {
+  background-color: var(--color-parchment);
+  border-color: var(--color-sepia);
+}
+
+[data-theme="dark"] .product-card:hover {
+  border-color: var(--color-library-green);
+}
+
+[data-theme="dark"] .cart-summary {
+  background: linear-gradient(135deg, #1A0F0A 0%, #2A2419 100%);
+  border-color: var(--color-antique-gold);
+}
