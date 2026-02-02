@@ -29,7 +29,7 @@ export interface AuthenticatedRequest extends Request {
   };
 }
 
-export interface AddToChangoRequest {
+export interface AddToCartRequest {
   productId: string;
   quantity: number;
 }
