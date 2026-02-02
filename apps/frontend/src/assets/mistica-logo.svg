@@ -1,0 +1,53 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="misticaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#misticaGradient)" filter="url(#glow)"/>
+  
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Inner circle -->
+  <circle cx="100" cy="100" r="70" fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- Main mask/mystical symbol -->
+  <g transform="translate(100,100)">
+    <!-- Left curve -->
+    <path d="M -20,-15 Q -35,-5 -30,15" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Right curve -->
+    <path d="M 20,-15 Q 35,-5 30,15" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Center mystical eye -->
+    <circle cx="0" cy="-5" r="8" fill="white" opacity="0.9"/>
+    <circle cx="0" cy="-5" r="4" fill="#8b5cf6"/>
+    
+    <!-- Bottom symbol -->
+    <path d="M -15,20 Q 0,35 15,20" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Stars around -->
+    <g stroke="white" stroke-width="1.5" stroke-linecap="round">
+      <line x1="0" y1="-35" x2="0" y2="-42"/>
+      <line x1="24" y1="-24" x2="30" y2="-30"/>
+      <line x1="35" y1="0" x2="42" y2="0"/>
+      <line x1="-24" y1="-24" x2="-30" y2="-30"/>
+      <line x1="-35" y1="0" x2="-42" y2="0"/>
+    </g>
+  </g>
+  
+  <!-- Text -->
+  <text x="100" y="165" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">MÍSTICA</text>
+</svg>
